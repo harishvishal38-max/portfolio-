@@ -648,6 +648,39 @@ export default function EditPortfolioModal({
                 </div>
               </div>
 
+              {/* Website Student Background Image Upload / URL */}
+              <div>
+                <label className="block text-xs font-medium text-gray-300 mb-1">
+                  Website Background Image (Professional Student Photo URL or Upload)
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={profileForm.bg_image_url || ''}
+                    onChange={(e) => setProfileForm({ ...profileForm, bg_image_url: e.target.value })}
+                    placeholder="https://... or upload custom student / workspace photo"
+                    className="w-full px-3.5 py-2 rounded-xl glass-input text-xs"
+                  />
+                  <label className="cursor-pointer px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs flex items-center gap-1 border border-white/15 whitespace-nowrap">
+                    <Upload className="w-3.5 h-3.5" />
+                    <span>Upload Image</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) =>
+                        handleFileUpload(e.target.files[0], (url) =>
+                          setProfileForm({ ...profileForm, bg_image_url: url })
+                        )
+                      }
+                    />
+                  </label>
+                </div>
+                <p className="text-[11px] text-gray-400 mt-1">
+                  This image is smoothly blended into the dark space background behind the 3D planets and frosted glass cards.
+                </p>
+              </div>
+
               <button
                 type="submit"
                 disabled={saving || uploading}

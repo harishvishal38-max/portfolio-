@@ -97,7 +97,7 @@ app.get('/api/profile', (req, res) => {
 });
 
 app.put('/api/profile', (req, res) => {
-  const { name, title, bio, college, department, location, resume_url, github_url, linkedin_url, email, avatar_url } = req.body;
+  const { name, title, bio, college, department, location, resume_url, github_url, linkedin_url, email, avatar_url, bg_image_url } = req.body;
   const stmt = db.prepare(`
     UPDATE profile SET
       name = COALESCE(?, name),
@@ -110,10 +110,11 @@ app.put('/api/profile', (req, res) => {
       github_url = COALESCE(?, github_url),
       linkedin_url = COALESCE(?, linkedin_url),
       email = COALESCE(?, email),
-      avatar_url = COALESCE(?, avatar_url)
+      avatar_url = COALESCE(?, avatar_url),
+      bg_image_url = COALESCE(?, bg_image_url)
     WHERE id = 1
   `);
-  stmt.run(name, title, bio, college, department, location, resume_url, github_url, linkedin_url, email, avatar_url);
+  stmt.run(name, title, bio, college, department, location, resume_url, github_url, linkedin_url, email, avatar_url, bg_image_url);
   const updated = db.prepare('SELECT * FROM profile WHERE id = 1').get();
   res.json(updated);
 });

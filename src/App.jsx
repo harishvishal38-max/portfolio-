@@ -51,8 +51,8 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#050711] text-white selection:bg-purple-500/40 selection:text-white font-sans overflow-x-hidden">
-      {/* 3D Animated Background: Galaxy Canvas, Shooting Stars, Floating Planets & Cosmic Glow */}
-      <BackgroundSpace />
+      {/* 3D Animated Background: Professional Student Atmosphere, Galaxy Canvas, Shooting Stars & Floating Planets */}
+      <BackgroundSpace bgImageUrl={data?.profile?.bg_image_url} />
 
       {/* Floating Glassmorphism Navigation Bar */}
       <Navbar

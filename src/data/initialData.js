@@ -11,6 +11,7 @@ export const fallbackPortfolioData = {
     linkedin_url: 'https://linkedin.com',
     email: 'vishal.m.dev@example.com',
     avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80',
+    bg_image_url: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80',
   },
   about: {
     intro: 'I am an enthusiastic Computer Science and Engineering student with a deep interest in software engineering, backend systems, and responsive modern web technologies. I enjoy decomposing difficult challenges into performant code.',

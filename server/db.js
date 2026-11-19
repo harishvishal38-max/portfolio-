@@ -29,7 +29,8 @@ export function initDatabase() {
       github_url TEXT,
       linkedin_url TEXT,
       email TEXT,
-      avatar_url TEXT
+      avatar_url TEXT,
+      bg_image_url TEXT
     );
 
     CREATE TABLE IF NOT EXISTS about (
@@ -120,6 +121,13 @@ export function initDatabase() {
     );
   `);
 
+  // Auto-migration for bg_image_url if profile table already existed
+  try {
+    db.exec(`ALTER TABLE profile ADD COLUMN bg_image_url TEXT;`);
+  } catch (e) {
+    // Column already exists
+  }
+
   // Seed default data if empty
   seedDefaultDataIfEmpty();
 }
@@ -141,8 +149,8 @@ export function seedDefaultDataIfEmpty(forceReset = false) {
   const profileCount = db.prepare('SELECT COUNT(*) as count FROM profile').get().count;
   if (profileCount === 0) {
     const insertProfile = db.prepare(`
-      INSERT INTO profile (id, name, title, bio, college, department, location, resume_url, github_url, linkedin_url, email, avatar_url)
-      VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO profile (id, name, title, bio, college, department, location, resume_url, github_url, linkedin_url, email, avatar_url, bg_image_url)
+      VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
     insertProfile.run(
       'Vishal M',
@@ -155,8 +163,14 @@ export function seedDefaultDataIfEmpty(forceReset = false) {
       'https://github.com',
       'https://linkedin.com',
       'vishal.m.dev@example.com',
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80'
+      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80',
+      'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80'
     );
+  } else {
+    // Ensure bg_image_url has default if null
+    try {
+      db.exec(`UPDATE profile SET bg_image_url = 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80' WHERE bg_image_url IS NULL OR bg_image_url = ''`);
+    } catch (e) {}
   }
 
   const aboutCount = db.prepare('SELECT COUNT(*) as count FROM about').get().count;

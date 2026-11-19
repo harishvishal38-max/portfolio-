@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-export default function BackgroundSpace() {
+export default function BackgroundSpace({ bgImageUrl }) {
   const canvasRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const defaultBg =
+    'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80';
+  const finalBg = bgImageUrl || defaultBg;
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -65,7 +69,7 @@ export default function BackgroundSpace() {
       tick++;
       ctx.clearRect(0, 0, width, height);
 
-      // Deep space subtle gradient wash
+      // Deep space subtle gradient wash with semi-transparency so student image is visible
       const bgGrad = ctx.createRadialGradient(
         width * 0.5,
         height * 0.4,
@@ -74,17 +78,17 @@ export default function BackgroundSpace() {
         height * 0.5,
         width * 0.9
       );
-      bgGrad.addColorStop(0, '#0a0d25');
-      bgGrad.addColorStop(0.5, '#070919');
-      bgGrad.addColorStop(1, '#050711');
+      bgGrad.addColorStop(0, 'rgba(10, 13, 37, 0.45)');
+      bgGrad.addColorStop(0.5, 'rgba(7, 9, 25, 0.65)');
+      bgGrad.addColorStop(1, 'rgba(5, 7, 17, 0.85)');
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, width, height);
 
       // Render cosmic nebula dust spots
       const nebulae = [
-        { x: width * 0.2, y: height * 0.25, r: width * 0.35, col: 'rgba(139, 92, 246, 0.07)' },
-        { x: width * 0.85, y: height * 0.45, r: width * 0.4, col: 'rgba(236, 72, 153, 0.06)' },
-        { x: width * 0.5, y: height * 0.85, r: width * 0.45, col: 'rgba(56, 189, 248, 0.06)' },
+        { x: width * 0.2, y: height * 0.25, r: width * 0.35, col: 'rgba(139, 92, 246, 0.09)' },
+        { x: width * 0.85, y: height * 0.45, r: width * 0.4, col: 'rgba(236, 72, 153, 0.08)' },
+        { x: width * 0.5, y: height * 0.85, r: width * 0.45, col: 'rgba(56, 189, 248, 0.08)' },
       ];
       nebulae.forEach((neb) => {
         const rad = ctx.createRadialGradient(neb.x, neb.y, 0, neb.x, neb.y, neb.r);
@@ -163,14 +167,33 @@ export default function BackgroundSpace() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      {/* Professional Student Cinematic Background Layer */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <img
+          src={finalBg}
+          alt="Professional Student Background"
+          className="w-full h-full object-cover object-center filter saturate-[1.15] contrast-[1.1] brightness-[0.6] transition-transform duration-1000 ease-out"
+          style={{
+            transform: `translate3d(${parallaxX * -12}px, ${parallaxY * -12}px, 0) scale(1.05)`,
+          }}
+          onError={(e) => {
+            e.target.src = defaultBg;
+          }}
+        />
+        {/* Atmospheric Space Overlay Gradients */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050711]/80 via-[#050711]/60 to-[#050711]/92" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_#050711_85%)]" />
+        <div className="absolute inset-0 bg-purple-950/20 mix-blend-color" />
+      </div>
+
       {/* Dynamic Starfield Canvas */}
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-10" />
 
       {/* 3D Floating Planets with Parallax */}
 
       {/* Planet 1: Main Purple-Pink Ringed Gas Giant (Top Right) */}
       <div
-        className="absolute top-12 -right-16 md:right-12 lg:right-24 w-52 h-52 md:w-72 md:h-72 transition-transform duration-700 ease-out animate-float-slow"
+        className="absolute top-12 -right-16 md:right-12 lg:right-24 w-52 h-52 md:w-72 md:h-72 transition-transform duration-700 ease-out animate-float-slow z-20"
         style={{
           transform: `translate3d(${parallaxX * -25}px, ${parallaxY * -25}px, 0)`,
         }}
@@ -206,7 +229,7 @@ export default function BackgroundSpace() {
 
       {/* Planet 2: Cyan Ice Giant with Blue Atmosphere (Mid-Left) */}
       <div
-        className="absolute top-[48%] -left-12 md:left-8 lg:left-16 w-36 h-36 md:w-52 md:h-52 transition-transform duration-700 ease-out animate-float-reverse"
+        className="absolute top-[48%] -left-12 md:left-8 lg:left-16 w-36 h-36 md:w-52 md:h-52 transition-transform duration-700 ease-out animate-float-reverse z-20"
         style={{
           transform: `translate3d(${parallaxX * 35}px, ${parallaxY * 35}px, 0)`,
         }}
@@ -233,7 +256,7 @@ export default function BackgroundSpace() {
 
       {/* Planet 3: Vibrant Magenta Dwarf (Bottom Right) */}
       <div
-        className="absolute bottom-28 right-8 md:right-32 w-24 h-24 md:w-36 md:h-36 transition-transform duration-700 ease-out animate-float-slow"
+        className="absolute bottom-28 right-8 md:right-32 w-24 h-24 md:w-36 md:h-36 transition-transform duration-700 ease-out animate-float-slow z-20"
         style={{
           transform: `translate3d(${parallaxX * -45}px, ${parallaxY * -45}px, 0)`,
         }}
@@ -251,7 +274,7 @@ export default function BackgroundSpace() {
 
       {/* Planet 4: Deep Violet Moon (Top Left) */}
       <div
-        className="absolute top-24 left-10 md:left-40 w-16 h-16 md:w-20 md:h-20 transition-transform duration-500 ease-out opacity-80"
+        className="absolute top-24 left-10 md:left-40 w-16 h-16 md:w-20 md:h-20 transition-transform duration-500 ease-out opacity-80 z-20"
         style={{
           transform: `translate3d(${parallaxX * 20}px, ${parallaxY * 20}px, 0)`,
         }}
@@ -267,9 +290,9 @@ export default function BackgroundSpace() {
       </div>
 
       {/* Ambient Cosmic Horizon Gradients */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-1/3 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-pink-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none z-10" />
+      <div className="absolute bottom-10 left-1/3 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none z-10" />
+      <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-pink-600/10 rounded-full blur-3xl pointer-events-none z-10" />
     </div>
   );
 }
