@@ -10,7 +10,7 @@ export const fallbackPortfolioData = {
     github_url: 'https://github.com',
     linkedin_url: 'https://linkedin.com',
     email: 'vishal.m.dev@example.com',
-    avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80',
+    avatar_url: '',
     bg_image_url: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80',
     instagram_url: 'https://instagram.com',
   },

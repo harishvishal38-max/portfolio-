@@ -15,7 +15,7 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 
-export default function AboutSection({ about }) {
+export default function AboutSection({ about, profile }) {
   const strengthsList = [
     {
       title: 'Algorithmic Problem Solving',
@@ -62,12 +62,19 @@ export default function AboutSection({ about }) {
           <div className="lg:col-span-5 flex flex-col gap-6">
             {/* Professional Profile Image Card */}
             <div className="glass-panel rounded-3xl p-6 border border-white/15 relative overflow-hidden group shadow-xl flex flex-col items-center text-center">
-              <div className="relative w-44 h-44 rounded-2xl overflow-hidden border-2 border-purple-500/40 p-1 bg-gradient-to-tr from-purple-600 via-pink-500 to-cyan-400 shadow-2xl mb-4">
-                <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
-                  alt="Professional Profile"
-                  className="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
-                />
+              <div className="relative w-44 h-44 rounded-2xl overflow-hidden border border-slate-700 p-1 bg-slate-900 shadow-xl mb-4 flex items-center justify-center">
+                {profile?.avatar_url ? (
+                  <img
+                    src={profile.avatar_url}
+                    alt="Professional Profile"
+                    className="w-full h-full object-cover rounded-xl"
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 py-6">
+                    <User className="w-16 h-16 stroke-[1.5]" />
+                    <span className="text-[11px] font-medium text-slate-400 mt-2">Empty Avatar</span>
+                  </div>
+                )}
               </div>
               <h3 className="text-xl font-bold text-white">Engineering Student</h3>
               <span className="text-xs text-purple-300 font-medium mt-0.5">Computer Science & Engineering</span>

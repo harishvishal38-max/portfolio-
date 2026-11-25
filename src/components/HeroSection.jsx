@@ -9,6 +9,7 @@ import {
   ArrowRight,
   Code2,
   Building2,
+  User,
 } from 'lucide-react';
 import { LinkedinIcon, GithubIcon, InstagramIcon } from './SocialIcons';
 
@@ -66,19 +67,18 @@ export default function HeroSection({ profile, onOpenEditModal }) {
 
           {/* Profile Picture Area with Clean Professional Ring */}
           <div className="relative mb-6">
-            <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1 bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 shadow-xl overflow-hidden">
-              <img
-                src={
-                  profile?.avatar_url ||
-                  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80'
-                }
-                alt={profile?.name || 'Profile'}
-                className="w-full h-full object-cover rounded-full"
-                onError={(e) => {
-                  e.target.src =
-                    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80';
-                }}
-              />
+            <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1 bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 shadow-xl overflow-hidden flex items-center justify-center">
+              {profile?.avatar_url ? (
+                <img
+                  src={profile.avatar_url}
+                  alt={profile?.name || 'Profile'}
+                  className="w-full h-full object-cover rounded-full"
+                />
+              ) : (
+                <div className="w-full h-full rounded-full bg-slate-900 border border-slate-700/60 flex items-center justify-center text-slate-400">
+                  <User className="w-14 h-14 sm:w-16 sm:h-16 stroke-[1.5]" />
+                </div>
+              )}
             </div>
 
             {/* Clean Code Badge */}

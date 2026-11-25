@@ -69,7 +69,7 @@ export default function App() {
         />
 
         {/* 2. About Me */}
-        <AboutSection about={data?.about} />
+        <AboutSection about={data?.about} profile={data?.profile} />
 
         {/* 3. Education Timeline */}
         <EducationSection education={data?.education} />
