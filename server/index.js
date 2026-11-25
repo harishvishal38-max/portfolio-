@@ -19,7 +19,10 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static uploads
-const uploadsDir = path.join(__dirname, 'uploads');
+const isVercel = Boolean(process.env.VERCEL);
+const uploadsDir = isVercel
+  ? path.join('/tmp', 'uploads')
+  : path.join(__dirname, 'uploads');
 app.use('/uploads', express.static(uploadsDir));
 
 // Also serve client dist if built

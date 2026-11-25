@@ -6,11 +6,31 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const dbPath = path.join(__dirname, 'portfolio.db');
-const uploadsDir = path.join(__dirname, 'uploads');
+const isVercel = Boolean(process.env.VERCEL);
+const dbPath = isVercel
+  ? path.join('/tmp', 'portfolio.db')
+  : path.join(__dirname, 'portfolio.db');
+const uploadsDir = isVercel
+  ? path.join('/tmp', 'uploads')
+  : path.join(__dirname, 'uploads');
+
+if (isVercel) {
+  const seedDbPath = path.join(__dirname, 'portfolio.db');
+  if (!fs.existsSync(dbPath) && fs.existsSync(seedDbPath)) {
+    try {
+      fs.copyFileSync(seedDbPath, dbPath);
+    } catch (e) {
+      console.warn('Could not copy seed database to /tmp:', e);
+    }
+  }
+}
 
 if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
+  try {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+  } catch (e) {
+    console.warn('Could not create uploads directory:', e);
+  }
 }
 
 export const db = new DatabaseSync(dbPath);
