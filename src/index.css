@@ -31,62 +31,55 @@
 }
 
 @layer components {
-  /* Frosted Glass Panels */
+  /* Clean Normal Modern Card & Panel Surfaces (No Glass/Blur) */
   .glass-panel {
-    background: rgba(13, 17, 38, 0.55);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    background: #111827;
+    border: 1px solid #1f293d;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
   }
 
   .glass-card {
-    background: rgba(15, 23, 42, 0.5);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.4);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    background: #111827;
+    border: 1px solid #1f2937;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: all 0.25s ease-in-out;
   }
 
   .glass-card:hover {
-    background: rgba(22, 32, 60, 0.65);
-    border-color: rgba(139, 92, 246, 0.35);
-    box-shadow: 0 12px 40px -4px rgba(139, 92, 246, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
-    transform: translateY(-4px);
+    background: #162032;
+    border-color: #374151;
+    box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.45);
+    transform: translateY(-3px);
   }
 
   .glass-pill {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    transition: all 0.25s ease;
+    background: #1f2937;
+    border: 1px solid #374151;
+    color: #e5e7eb;
+    transition: all 0.2s ease;
   }
 
   .glass-pill:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(139, 92, 246, 0.5);
+    background: #283548;
+    border-color: #4b5563;
   }
 
   .glass-input {
-    background: rgba(13, 17, 38, 0.65);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #0f172a;
+    border: 1px solid #334155;
     color: #ffffff;
     transition: all 0.2s ease;
   }
 
   .glass-input:focus {
     outline: none;
-    border-color: #8B5CF6;
-    box-shadow: 0 0 15px rgba(139, 92, 246, 0.35);
-    background: rgba(17, 24, 52, 0.85);
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+    background: #0b1120;
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, #ffffff 0%, #d8b4fe 40%, #f472b6 80%, #38bdf8 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 50%, #818cf8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -98,25 +91,8 @@
   }
 
   .text-gradient-purple {
-    background: linear-gradient(135deg, #c084fc 0%, #ec4899 100%);
+    background: linear-gradient(135deg, #a78bfa 0%, #ec4899 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  }
-
-  /* 3D Planet Styling */
-  .planet-sphere {
-    border-radius: 50%;
-    box-shadow: inset -25px -25px 40px rgba(0, 0, 0, 0.8),
-                inset 10px 10px 20px rgba(255, 255, 255, 0.3),
-                0 0 40px rgba(139, 92, 246, 0.35);
-  }
-
-  .planet-ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    border-radius: 50%;
-    transform: translate(-50%, -50%) rotateX(75deg);
-    pointer-events: none;
   }
 }

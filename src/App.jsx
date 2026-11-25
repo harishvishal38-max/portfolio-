@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import BackgroundSpace from './components/BackgroundSpace';
-import DashboardLayout from './components/DashboardLayout';
+import ModernBackground from './components/ModernBackground';
+import Navbar from './components/Navbar';
+import HeroSection from './components/HeroSection';
+import AboutSection from './components/AboutSection';
+import EducationSection from './components/EducationSection';
+import SkillsSection from './components/SkillsSection';
+import ProjectsSection from './components/ProjectsSection';
+import EventsSection from './components/EventsSection';
+import CertificatesSection from './components/CertificatesSection';
+import ResumeSection from './components/ResumeSection';
+import ContactSection from './components/ContactSection';
 import CertificateModal from './components/CertificateModal';
 import EditPortfolioModal from './components/EditPortfolioModal';
 import LoadingScreen from './components/LoadingScreen';
@@ -23,7 +32,7 @@ export default function App() {
     } catch (err) {
       console.error('Failed to load portfolio:', err);
     } finally {
-      setTimeout(() => setLoading(false), 800);
+      setTimeout(() => setLoading(false), 500);
     }
   };
 
@@ -41,21 +50,65 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#050711] text-white selection:bg-purple-500/40 selection:text-white font-sans overflow-x-hidden">
-      {/* 3D Animated Background: Professional Student Atmosphere, Galaxy Canvas, Shooting Stars & Floating Planets */}
-      <BackgroundSpace bgImageUrl={data?.profile?.bg_image_url} />
+    <div className="relative min-h-screen bg-[#0b0f19] text-slate-100 font-sans selection:bg-indigo-600 selection:text-white overflow-x-hidden">
+      {/* Clean Normal Modern Background */}
+      <ModernBackground bgImageUrl={data?.profile?.bg_image_url} />
 
-      {/* Master Glassmorphic Dashboard Layout (Matching Reference Design Template) */}
-      <div className="relative z-10">
-        <DashboardLayout
-          data={data}
-          onOpenEditModal={(tab) => openEditModalWithTab(tab || 'profile')}
-          onPreviewCertificate={(cert) => setPreviewCert(cert)}
-          onRefresh={loadData}
+      {/* Sticky Top Navigation Bar */}
+      <Navbar
+        profile={data?.profile}
+        onOpenEditModal={() => openEditModalWithTab('profile')}
+      />
+
+      {/* Main Flowing Website Sections */}
+      <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-24 pb-20">
+        {/* 1. Hero Section */}
+        <HeroSection
+          profile={data?.profile}
+          onOpenEditModal={() => openEditModalWithTab('profile')}
         />
-      </div>
 
-      {/* Interactive Modal Preview for Image & PDF Certificates */}
+        {/* 2. About Me */}
+        <AboutSection about={data?.about} />
+
+        {/* 3. Education Timeline */}
+        <EducationSection education={data?.education} />
+
+        {/* 4. Technical Skills */}
+        <SkillsSection skills={data?.skills} />
+
+        {/* 5. Projects Section */}
+        <ProjectsSection
+          projects={data?.projects}
+          onOpenAddProject={() => openEditModalWithTab('projects')}
+        />
+
+        {/* 6. Events & Participation */}
+        <EventsSection
+          events={data?.events}
+          onOpenAddEvent={() => openEditModalWithTab('events')}
+          onPreviewCertificate={(cert) => setPreviewCert(cert)}
+        />
+
+        {/* 7. Certificates & Achievements */}
+        <CertificatesSection
+          certificates={data?.certificates}
+          achievements={data?.achievements}
+          onPreviewCertificate={(cert) => setPreviewCert(cert)}
+        />
+
+        {/* 8. Resume Section */}
+        <ResumeSection
+          profile={data?.profile}
+          onRefresh={loadData}
+          onPreviewCertificate={(cert) => setPreviewCert(cert)}
+        />
+
+        {/* 9. Contact & Footer */}
+        <ContactSection profile={data?.profile} />
+      </main>
+
+      {/* Interactive Certificate Preview Modal */}
       <CertificateModal
         certificate={previewCert}
         onClose={() => setPreviewCert(null)}
