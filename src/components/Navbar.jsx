@@ -11,9 +11,10 @@ export default function Navbar({ onOpenEditModal, profile }) {
     { name: 'About', href: '#about' },
     { name: 'Education', href: '#education' },
     { name: 'Skills', href: '#skills' },
+    { name: 'Projects', href: '#projects' },
     { name: 'Events', href: '#events' },
     { name: 'Certificates', href: '#certificates' },
-    { name: 'Projects', href: '#projects' },
+    { name: 'Resume', href: '#resume' },
     { name: 'Contact', href: '#contact' },
   ];
 

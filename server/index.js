@@ -97,7 +97,7 @@ app.get('/api/profile', (req, res) => {
 });
 
 app.put('/api/profile', (req, res) => {
-  const { name, title, bio, college, department, location, resume_url, github_url, linkedin_url, email, avatar_url, bg_image_url } = req.body;
+  const { name, title, bio, college, department, location, resume_url, github_url, linkedin_url, instagram_url, email, avatar_url, bg_image_url } = req.body;
   const stmt = db.prepare(`
     UPDATE profile SET
       name = COALESCE(?, name),
@@ -109,12 +109,13 @@ app.put('/api/profile', (req, res) => {
       resume_url = COALESCE(?, resume_url),
       github_url = COALESCE(?, github_url),
       linkedin_url = COALESCE(?, linkedin_url),
+      instagram_url = COALESCE(?, instagram_url),
       email = COALESCE(?, email),
       avatar_url = COALESCE(?, avatar_url),
       bg_image_url = COALESCE(?, bg_image_url)
     WHERE id = 1
   `);
-  stmt.run(name, title, bio, college, department, location, resume_url, github_url, linkedin_url, email, avatar_url, bg_image_url);
+  stmt.run(name, title, bio, college, department, location, resume_url, github_url, linkedin_url, instagram_url, email, avatar_url, bg_image_url);
   const updated = db.prepare('SELECT * FROM profile WHERE id = 1').get();
   res.json(updated);
 });
@@ -126,17 +127,18 @@ app.get('/api/about', (req, res) => {
 });
 
 app.put('/api/about', (req, res) => {
-  const { intro, career_interests, technical_interests, skills_summary, career_objective } = req.body;
+  const { intro, career_interests, technical_interests, skills_summary, career_objective, strengths } = req.body;
   const stmt = db.prepare(`
     UPDATE about SET
       intro = COALESCE(?, intro),
       career_interests = COALESCE(?, career_interests),
       technical_interests = COALESCE(?, technical_interests),
       skills_summary = COALESCE(?, skills_summary),
-      career_objective = COALESCE(?, career_objective)
+      career_objective = COALESCE(?, career_objective),
+      strengths = COALESCE(?, strengths)
     WHERE id = 1
   `);
-  stmt.run(intro, career_interests, technical_interests, skills_summary, career_objective);
+  stmt.run(intro, career_interests, technical_interests, skills_summary, career_objective, strengths);
   const updated = db.prepare('SELECT * FROM about WHERE id = 1').get();
   res.json(updated);
 });

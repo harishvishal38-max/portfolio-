@@ -121,12 +121,10 @@ export function initDatabase() {
     );
   `);
 
-  // Auto-migration for bg_image_url if profile table already existed
-  try {
-    db.exec(`ALTER TABLE profile ADD COLUMN bg_image_url TEXT;`);
-  } catch (e) {
-    // Column already exists
-  }
+  // Auto-migration for new columns if tables already existed
+  try { db.exec(`ALTER TABLE profile ADD COLUMN bg_image_url TEXT;`); } catch (e) {}
+  try { db.exec(`ALTER TABLE profile ADD COLUMN instagram_url TEXT;`); } catch (e) {}
+  try { db.exec(`ALTER TABLE about ADD COLUMN strengths TEXT;`); } catch (e) {}
 
   // Seed default data if empty
   seedDefaultDataIfEmpty();
@@ -232,29 +230,39 @@ export function seedDefaultDataIfEmpty(forceReset = false) {
       INSERT INTO skills (category, name, proficiency, icon, order_index)
       VALUES (?, ?, ?, ?, ?)
     `);
-    // Programming Languages
-    insertSkill.run('Programming Languages', 'Java', 90, 'Code2', 1);
-    insertSkill.run('Programming Languages', 'Python', 82, 'Terminal', 2);
-    insertSkill.run('Programming Languages', 'C', 85, 'Cpu', 3);
+    // Programming
+    insertSkill.run('Programming', 'Python', 92, 'Terminal', 1);
+    insertSkill.run('Programming', 'Java', 90, 'Code2', 2);
+    insertSkill.run('Programming', 'C', 85, 'Cpu', 3);
+    insertSkill.run('Programming', 'C++', 86, 'Code2', 4);
+
+    // Web Development
+    insertSkill.run('Web Development', 'HTML', 94, 'Globe', 5);
+    insertSkill.run('Web Development', 'CSS', 90, 'Palette', 6);
+    insertSkill.run('Web Development', 'JavaScript', 88, 'FileCode2', 7);
 
     // Database
-    insertSkill.run('Database', 'MySQL', 86, 'Database', 4);
-
-    // Web Technologies
-    insertSkill.run('Web Technologies', 'HTML5', 94, 'Globe', 5);
-    insertSkill.run('Web Technologies', 'CSS3 / Tailwind', 90, 'Palette', 6);
-    insertSkill.run('Web Technologies', 'JavaScript (ES6+)', 85, 'FileCode2', 7);
+    insertSkill.run('Database', 'MySQL', 86, 'Database', 8);
+    insertSkill.run('Database', 'Firebase', 82, 'Cloud', 9);
 
     // Tools
-    insertSkill.run('Tools', 'VS Code', 95, 'Laptop', 8);
-    insertSkill.run('Tools', 'GitHub & Git', 88, 'GitBranch', 9);
-    insertSkill.run('Tools', 'Google Colab', 84, 'Cloud', 10);
+    insertSkill.run('Tools', 'VS Code', 95, 'Laptop', 10);
+    insertSkill.run('Tools', 'GitHub', 90, 'GitBranch', 11);
+    insertSkill.run('Tools', 'Google Colab', 85, 'Terminal', 12);
 
-    // Other Skills
-    insertSkill.run('Other Skills', 'Problem Solving', 92, 'Lightbulb', 11);
-    insertSkill.run('Other Skills', 'Teamwork', 90, 'Users', 12);
-    insertSkill.run('Other Skills', 'Communication', 88, 'MessageSquare', 13);
+    // Other Technical Skills
+    insertSkill.run('Other Technical Skills', 'Data Science', 80, 'Layers', 13);
+    insertSkill.run('Other Technical Skills', 'AI', 84, 'Sparkles', 14);
+    insertSkill.run('Other Technical Skills', 'Machine Learning', 82, 'Cpu', 15);
   }
+
+  // Ensure default strengths exist on about table
+  try {
+    const aboutRow = db.prepare('SELECT strengths FROM about WHERE id = 1').get();
+    if (aboutRow && !aboutRow.strengths) {
+      db.exec(`UPDATE about SET strengths = 'Algorithmic Problem Solving, Full-Stack System Architecture, Rapid Adaptability & Fast Learning, Cross-Functional Teamwork, Code Quality & Clean Design' WHERE id = 1`);
+    }
+  } catch (e) {}
 
   const eventsCount = db.prepare('SELECT COUNT(*) as count FROM events').get().count;
   if (eventsCount === 0) {

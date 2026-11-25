@@ -10,7 +10,7 @@ import {
   ArrowUp,
   MessageSquare,
 } from 'lucide-react';
-import { LinkedinIcon, GithubIcon } from './SocialIcons';
+import { LinkedinIcon, GithubIcon, InstagramIcon } from './SocialIcons';
 import confetti from 'canvas-confetti';
 import { sendContactMessage } from '../utils/api';
 
@@ -161,6 +161,27 @@ export default function ContactSection({ profile }) {
                 </div>
               </div>
               <span className="text-xs text-cyan-400 font-semibold">&rarr;</span>
+            </a>
+
+            {/* Instagram Profile Card */}
+            <a
+              href={profile?.instagram_url || 'https://instagram.com'}
+              target="_blank"
+              rel="noreferrer"
+              className="glass-card rounded-3xl p-6 border border-white/10 flex items-center justify-between group hover:border-pink-500/40 transition-all"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-3 rounded-2xl bg-pink-600/20 border border-pink-500/30 text-pink-400">
+                  <InstagramIcon className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-xs text-gray-400 block font-medium">Instagram</span>
+                  <span className="font-bold text-white group-hover:text-pink-200 text-sm sm:text-base transition-colors">
+                    Follow on Instagram
+                  </span>
+                </div>
+              </div>
+              <span className="text-xs text-pink-400 font-semibold">&rarr;</span>
             </a>
 
             {/* Location Card */}

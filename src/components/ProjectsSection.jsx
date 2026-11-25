@@ -5,10 +5,11 @@ import {
   Sparkles,
   Layers,
   Code2,
+  PlusCircle,
 } from 'lucide-react';
 import { GithubIcon } from './SocialIcons';
 
-export default function ProjectsSection({ projects }) {
+export default function ProjectsSection({ projects, onOpenAddProject }) {
   return (
     <section id="projects" className="relative py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -24,6 +25,17 @@ export default function ProjectsSection({ projects }) {
           <p className="mt-3 text-sm sm:text-base text-gray-400 max-w-xl mx-auto">
             Practical software projects demonstrating full-stack engineering, algorithmic implementation, and database architecture.
           </p>
+          {onOpenAddProject && (
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={onOpenAddProject}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-semibold shadow-lg shadow-purple-900/30 border border-white/20 transition-all duration-200 hover:scale-105 active:scale-95"
+              >
+                <PlusCircle className="w-4 h-4" />
+                <span>Add / Edit Projects</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Projects Grid */}

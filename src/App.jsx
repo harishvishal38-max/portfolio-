@@ -49,8 +49,9 @@ export default function App() {
       <div className="relative z-10">
         <DashboardLayout
           data={data}
-          onOpenEditModal={() => openEditModalWithTab('profile')}
+          onOpenEditModal={(tab) => openEditModalWithTab(tab || 'profile')}
           onPreviewCertificate={(cert) => setPreviewCert(cert)}
+          onRefresh={loadData}
         />
       </div>
 

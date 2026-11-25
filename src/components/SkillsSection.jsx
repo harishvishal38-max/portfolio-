@@ -55,19 +55,23 @@ export default function SkillsSection({ skills }) {
     }
   };
 
+  // Extract unique categories dynamically, with sensible defaults
   const categories = [
     'All',
-    'Programming Languages',
-    'Database',
-    'Web Technologies',
-    'Tools',
-    'Other Skills',
+    ...Array.from(
+      new Set(
+        (skills && skills.length > 0
+          ? skills.map((s) => s.category)
+          : ['Programming', 'Web Development', 'Database', 'Tools', 'Other Technical Skills']
+        ).filter(Boolean)
+      )
+    ),
   ];
 
   const filteredSkills =
     selectedCategory === 'All'
       ? skills
-      : skills?.filter((s) => s.category === selectedCategory);
+      : skills?.filter((s) => s.category?.toLowerCase() === selectedCategory.toLowerCase());
 
   return (
     <section id="skills" className="relative py-20 px-4 sm:px-6 lg:px-8">

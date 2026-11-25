@@ -559,7 +559,7 @@ export default function EditPortfolioModal({
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
                   <label className="block text-xs font-medium text-gray-300 mb-1">LinkedIn URL</label>
                   <input
@@ -575,6 +575,15 @@ export default function EditPortfolioModal({
                     type="text"
                     value={profileForm.github_url || ''}
                     onChange={(e) => setProfileForm({ ...profileForm, github_url: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl glass-input text-xs"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-300 mb-1">Instagram URL</label>
+                  <input
+                    type="text"
+                    value={profileForm.instagram_url || ''}
+                    onChange={(e) => setProfileForm({ ...profileForm, instagram_url: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl glass-input text-xs"
                   />
                 </div>

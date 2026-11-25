@@ -26,8 +26,9 @@ import {
   Tag,
   Eye,
   Plus,
+  FileText,
 } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './SocialIcons';
+import { GithubIcon, LinkedinIcon, InstagramIcon } from './SocialIcons';
 import HeroSection from './HeroSection';
 import AboutSection from './AboutSection';
 import EducationSection from './EducationSection';
@@ -35,12 +36,14 @@ import SkillsSection from './SkillsSection';
 import EventsSection from './EventsSection';
 import CertificatesSection from './CertificatesSection';
 import ProjectsSection from './ProjectsSection';
+import ResumeSection from './ResumeSection';
 import ContactSection from './ContactSection';
 
 export default function DashboardLayout({
   data,
   onOpenEditModal,
   onPreviewCertificate,
+  onRefresh,
 }) {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [themeMode, setThemeMode] = useState('space'); // 'space' (Dark Cosmic Glass) or 'opal' (Frosted Opal White Glass as in Image 2)
@@ -64,9 +67,10 @@ export default function DashboardLayout({
     { id: 'about', label: 'About Me', icon: <User className="w-4 h-4" /> },
     { id: 'education', label: 'Education', icon: <GraduationCap className="w-4 h-4" /> },
     { id: 'skills', label: 'Skills & Tech', icon: <Cpu className="w-4 h-4" /> },
+    { id: 'projects', label: 'Projects', icon: <FolderGit2 className="w-4 h-4" /> },
     { id: 'events', label: 'Events', icon: <Calendar className="w-4 h-4" /> },
     { id: 'certificates', label: 'Certificates', icon: <Award className="w-4 h-4" /> },
-    { id: 'projects', label: 'Projects', icon: <FolderGit2 className="w-4 h-4" /> },
+    { id: 'resume', label: 'Resume', icon: <FileText className="w-4 h-4" /> },
     { id: 'contact', label: 'Contact', icon: <Mail className="w-4 h-4" /> },
   ];
 
@@ -270,6 +274,15 @@ export default function DashboardLayout({
                   aria-label="LinkedIn"
                 >
                   <LinkedinIcon className="w-4 h-4" />
+                </a>
+                <a
+                  href={profile.instagram_url || 'https://instagram.com'}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2 rounded-xl hover:scale-110 transition-transform text-pink-400 hover:text-pink-300"
+                  aria-label="Instagram"
+                >
+                  <InstagramIcon className="w-4 h-4" />
                 </a>
                 <a
                   href={`mailto:${profile.email || 'vishal.m.dev@example.com'}`}
@@ -837,7 +850,20 @@ export default function DashboardLayout({
 
             {activeTab === 'projects' && (
               <div className="animate-in fade-in duration-300">
-                <ProjectsSection projects={projects} />
+                <ProjectsSection
+                  projects={projects}
+                  onOpenAddProject={() => onOpenEditModal('projects')}
+                />
+              </div>
+            )}
+
+            {activeTab === 'resume' && (
+              <div className="animate-in fade-in duration-300">
+                <ResumeSection
+                  profile={profile}
+                  onPreviewCertificate={onPreviewCertificate}
+                  onRefresh={onRefresh}
+                />
               </div>
             )}
 

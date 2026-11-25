@@ -14,26 +14,33 @@ import {
 export default function EventsSection({ events, onOpenAddEvent, onPreviewCertificate }) {
   const [selectedType, setSelectedType] = useState('All');
 
-  const eventTypes = ['All', 'Hackathon', 'Symposium', 'Workshop', 'Technical Event'];
+  const eventTypes = [
+    'All',
+    'Hackathon',
+    'Symposium',
+    'Workshop',
+    'Paper Presentation',
+    'College Event',
+    'Competition',
+    'Technical Event',
+  ];
 
   const filteredEvents =
     selectedType === 'All'
       ? events
-      : events?.filter((e) => e.event_type.toLowerCase() === selectedType.toLowerCase());
+      : events?.filter((e) =>
+          e.event_type?.toLowerCase().includes(selectedType.toLowerCase()) ||
+          selectedType.toLowerCase().includes(e.event_type?.toLowerCase() || '')
+        );
 
   const getTypeStyle = (type) => {
-    switch (type?.toLowerCase()) {
-      case 'hackathon':
-        return 'bg-purple-500/20 text-purple-300 border-purple-500/40';
-      case 'symposium':
-        return 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40';
-      case 'workshop':
-        return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
-      case 'technical event':
-        return 'bg-pink-500/20 text-pink-300 border-pink-500/40';
-      default:
-        return 'bg-white/10 text-white border-white/20';
-    }
+    const t = type?.toLowerCase() || '';
+    if (t.includes('hackathon')) return 'bg-purple-500/20 text-purple-300 border-purple-500/40';
+    if (t.includes('symposium')) return 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40';
+    if (t.includes('workshop')) return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+    if (t.includes('paper')) return 'bg-amber-500/20 text-amber-300 border-amber-500/40';
+    if (t.includes('competition')) return 'bg-rose-500/20 text-rose-300 border-rose-500/40';
+    return 'bg-pink-500/20 text-pink-300 border-pink-500/40';
   };
 
   return (
