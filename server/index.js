@@ -421,7 +421,7 @@ if (fs.existsSync(distDir)) {
 
 if (!process.env.VERCEL) {
   app.listen(PORT, () => {
-    console.log(`🚀 Cosmic Space Portfolio Server running at http://localhost:${PORT}`);
+    console.log(`🚀 Portfolio Server running at http://localhost:${PORT}`);
   });
 }
 
